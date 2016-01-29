@@ -17,8 +17,11 @@ class QGISServerLayer(models.Model):
     """Model for Layer in QGIS Server Backend.
     """
 
-    accepted_format = [
-        'tif', 'tiff', 'asc', 'shp', 'shx', 'dbf', 'prj', 'qml', 'xml']
+    vector_format = ['shp']
+    raster_format = ['tif', 'tiff', 'asc']
+    accepted_format = ['shx', 'dbf', 'prj', 'qml', 'xml']
+    accepted_format.extend(vector_format)
+    accepted_format.extend(raster_format)
 
     layer = models.OneToOneField(
         Layer,
