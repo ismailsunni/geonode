@@ -35,5 +35,5 @@ urlpatterns = patterns(
         name='qgis-server-download-zip'
     ),
     'geonode.qgis_server.views',
-    url(r'^(?P<layer_id>[A-Za-z0-9]*)/(?P<z>[0-9]*)/(?P<x>[0-9]*)/(?P<y>[0-9]*).png$', 'tile'),
+    url(r'^(?P<layer_id>[A-Za-z0-9]*)/(?P<z>[0-9]*)/(?P<x>[0-9]*)/(?P<y>[0-9]*).png$', 'tile', name='qgis-server-tiling'),
 )

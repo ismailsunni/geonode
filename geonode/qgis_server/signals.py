@@ -96,7 +96,6 @@ def qgis_server_post_save(instance, sender, **kwargs):
     qgis_layer.save()
 
     # Set Link for Download Raw in Zip File
-    zip_download_url = 'qgis-server/download-zip/' + instance.name
     zip_download_url = reverse(
             'qgis-server-download-zip',
             kwargs={'layername': instance.name})
@@ -109,6 +108,27 @@ def qgis_server_post_save(instance, sender, **kwargs):
                         name='Zipped Shapefile',
                         mime='SHAPE-ZIP',
                         url=zip_download_url,
+                        link_type='data'
+                )
+            )
+    # Set Link for Tiling
+    tile_url = reverse(
+            'qgis-server-tiling',
+            kwargs={
+                'layerid': instance.uuid,
+                'z': 'z',
+                'x': 'x',
+                'y': 'y'
+            })
+    logger.debug('tile_url: %s' % tile_url)
+    Link.objects.get_or_create(
+            resource=instance.resourcebase_ptr,
+            url=tile_url,
+            defaults=dict(
+                        extension='zip',
+                        name='Zipped Shapefile',
+                        mime='SHAPE-ZIP',
+                        url=tile_url,
                         link_type='data'
                 )
             )
