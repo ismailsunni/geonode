@@ -119,6 +119,13 @@ if 'geonode.qgis_server' in settings.INSTALLED_APPS:
                             (r'', include('geonode.qgis_server.urls')),
                             )
 
+if 'geonode.qgis_server' in settings.INSTALLED_APPS:
+    # QGIS Server Views
+    urlpatterns += patterns('',
+                            # Upload views
+                            (r'^tiles/', include('geonode.qgis_server.urls')),
+                            )
+
 if 'notification' in settings.INSTALLED_APPS:
     urlpatterns += patterns('',
                             (r'^notifications/', include('notification.urls')),
