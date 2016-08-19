@@ -20,6 +20,7 @@
 
 # Django settings for the GeoNode project.
 import os
+
 from kombu import Queue
 import geonode
 from geonode.celery_app import app  # flake8: noqa
@@ -205,7 +206,8 @@ LOGOUT_URL = '/account/logout/'
 # Documents application
 ALLOWED_DOCUMENT_TYPES = [
     'doc', 'docx', 'gif', 'jpg', 'jpeg', 'ods', 'odt', 'odp', 'pdf', 'png', 'ppt',
-    'pptx', 'rar', 'sld', 'tif', 'tiff', 'txt', 'xls', 'xlsx', 'xml', 'zip', 'gz'
+    'pptx', 'rar', 'sld', 'tif', 'tiff', 'txt', 'xls', 'xlsx', 'xml', 'zip', 'gz',
+    'qml'
 ]
 MAX_DOCUMENT_SIZE = 2  # MB
 
@@ -232,12 +234,16 @@ GEONODE_APPS = (
     'geonode.groups',
     'geonode.services',
 
+    # QGIS Server Apps
+    # 'geonode_qgis_server',
+
     # GeoServer Apps
     # Geoserver needs to come last because
     # it's signals may rely on other apps' signals.
     'geonode.geoserver',
     'geonode.upload',
-    'geonode.tasks'
+    'geonode.tasks',
+
 )
 
 GEONODE_CONTRIB_APPS = (
@@ -789,7 +795,9 @@ LEAFLET_CONFIG = {
             'js': 'lib/js/Leaflet.fullscreen.min.js?v=%s' % VERSION,
             'auto-include': True,
         },
-    }
+    },
+    'SRID': 3857,
+    'RESET_VIEW': False
 }
 
 # option to enable/disable resource unpublishing for administrators
@@ -943,3 +951,9 @@ if 'geonode.geoserver' in INSTALLED_APPS:
     baselayers = MAP_BASELAYERS
     MAP_BASELAYERS = [LOCAL_GEOSERVER]
     MAP_BASELAYERS.extend(baselayers)
+
+# Load more settings from a file called local_settings.py if it exists
+try:
+    from local_settings import *  # noqa
+except ImportError:
+    pass
