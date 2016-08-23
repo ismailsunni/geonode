@@ -247,12 +247,12 @@ GEONODE_APPS = (
     'geonode.services',
 
     # QGIS Server Apps
-    'geonode_qgis_server',
+    # 'geonode_qgis_server',
 
     # GeoServer Apps
     # Geoserver needs to come last because
     # it's signals may rely on other apps' signals.
-    # 'geonode.geoserver',
+    'geonode.geoserver',
     'geonode.upload',
     'geonode.tasks',
 
