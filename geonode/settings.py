@@ -217,7 +217,8 @@ LOGOUT_URL = os.getenv('LOGOUT_URL','/account/logout/')
 # Documents application
 ALLOWED_DOCUMENT_TYPES = [
     'doc', 'docx', 'gif', 'jpg', 'jpeg', 'ods', 'odt', 'odp', 'pdf', 'png', 'ppt',
-    'pptx', 'rar', 'sld', 'tif', 'tiff', 'txt', 'xls', 'xlsx', 'xml', 'zip', 'gz'
+    'pptx', 'rar', 'sld', 'tif', 'tiff', 'txt', 'xls', 'xlsx', 'xml', 'zip', 'gz',
+    'qml'
 ]
 MAX_DOCUMENT_SIZE = int(os.getenv('MAX_DOCUMENT_SIZE ','2'))  # MB
 
@@ -243,6 +244,9 @@ GEONODE_APPS = (
     'geonode.api',
     'geonode.groups',
     'geonode.services',
+
+    # QGIS Server Apps
+    # 'geonode_qgis_server',
 
     # GeoServer Apps
     # Geoserver needs to come last because
@@ -803,7 +807,9 @@ LEAFLET_CONFIG = {
             'js': 'lib/js/Leaflet.fullscreen.min.js?v=%s' % VERSION,
             'auto-include': True,
         },
-    }
+    },
+    'SRID': 3857,
+    'RESET_VIEW': False
 }
 
 # option to enable/disable resource unpublishing for administrators
