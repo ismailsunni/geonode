@@ -689,6 +689,8 @@ def get_layer(request, layername):
             default=decimal_default
         ),
             content_type='application/javascript')
+
+
 def layer_metadata_detail(request, layername, template='layers/layer_metadata_detail.html'):
     layer = _resolve_layer(request, layername, 'view_resourcebase', _PERMISSION_MSG_METADATA)
     return render_to_response(template, RequestContext(request, {
