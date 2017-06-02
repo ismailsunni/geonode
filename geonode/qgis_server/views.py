@@ -376,6 +376,7 @@ def geotiff(request, layername, access_token=None):
     with open(filename, 'rb') as f:
         return HttpResponse(f.read(), content_type='image/tiff')
 
+
 def ascii(request, layername, access_token=None):
     try:
         layer = Layer.objects.get(name=layername)
@@ -409,6 +410,7 @@ def ascii(request, layername, access_token=None):
 
     with open(filename, 'rb') as f:
         return HttpResponse(f.read(), content_type='text/asc')
+
 
 def qgis_server_request(request):
     """View to forward OGC request to QGIS Server."""
