@@ -378,19 +378,8 @@ def geotiff(request, layername, access_token=None):
 
 
 def ascii(request, layername, access_token=None):
-    try:
-        layer = Layer.objects.get(name=layername)
-    except ObjectDoesNotExist:
-        msg = 'No layer found for %s' % layername
-        logger.debug(msg)
-        raise Http404(msg)
-
-    try:
-        qgis_layer = QGISServerLayer.objects.get(layer=layer)
-    except ObjectDoesNotExist:
-        msg = 'No QGIS Server Layer for existing layer %s' % layername
-        logger.debug(msg)
-        return Http404(msg)
+    layer = get_object_or_404(Layer, name=layername)
+    qgis_layer = get_object_or_404(QGISServerLayer, layer=layer)
 
     basename, _ = os.path.splitext(qgis_layer.base_layer_path)
 
