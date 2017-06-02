@@ -376,6 +376,39 @@ def geotiff(request, layername, access_token=None):
     with open(filename, 'rb') as f:
         return HttpResponse(f.read(), content_type='image/tiff')
 
+def ascii(request, layername, access_token=None):
+    try:
+        layer = Layer.objects.get(name=layername)
+    except ObjectDoesNotExist:
+        msg = 'No layer found for %s' % layername
+        logger.debug(msg)
+        raise Http404(msg)
+
+    try:
+        qgis_layer = QGISServerLayer.objects.get(layer=layer)
+    except ObjectDoesNotExist:
+        msg = 'No QGIS Server Layer for existing layer %s' % layername
+        logger.debug(msg)
+        return Http404(msg)
+
+    basename, _ = os.path.splitext(qgis_layer.base_layer_path)
+
+    # get geotiff file if exists
+    for ext in QGISServerLayer.ascii_format:
+        target_file = basename + '.' + ext
+        if os.path.exists(target_file):
+            filename = target_file
+            break
+    else:
+        filename = None
+
+    if not filename:
+        msg = 'No ASCII layer found for %s' % layername
+        logger.debug(msg)
+        raise Http404(msg)
+
+    with open(filename, 'rb') as f:
+        return HttpResponse(f.read(), content_type='text/asc')
 
 def qgis_server_request(request):
     """View to forward OGC request to QGIS Server."""
