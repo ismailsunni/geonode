@@ -216,7 +216,7 @@ def qgis_server_post_save(instance, sender, **kwargs):
             resource=instance.resourcebase_ptr,
             url=geotiff_url,
             defaults=dict(
-                extension='tif',
+                extension=original_ext.split('.')[-1],
                 name="GeoTIFF",
                 mime='image/tiff',
                 link_type='image'
@@ -234,7 +234,7 @@ def qgis_server_post_save(instance, sender, **kwargs):
             resource=instance.resourcebase_ptr,
             url=ascii_url,
             defaults=dict(
-                extension='asc',
+                extension=original_ext.split('.')[-1],
                 name="ASCII",
                 mime='image/asc',
                 link_type='image'
