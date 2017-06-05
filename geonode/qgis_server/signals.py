@@ -218,7 +218,7 @@ def qgis_server_post_save(instance, sender, **kwargs):
             defaults=dict(
                 extension='tif',
                 name="GeoTIFF",
-                mime='image/tif',
+                mime='image/tiff',
                 link_type='image'
             )
         )
@@ -236,7 +236,7 @@ def qgis_server_post_save(instance, sender, **kwargs):
             defaults=dict(
                 extension='asc',
                 name="ASCII",
-                mime='image/tif',
+                mime='image/asc',
                 link_type='image'
             )
         )
